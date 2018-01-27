@@ -1,5 +1,5 @@
-import requests
-
+import mailer
+import weather
 
 def get_emails():
 	emails = {}
@@ -28,12 +28,6 @@ def get_schedule():
 
 	return schedule
 
-def get_weather_forecast():
-	url = 'http://api.openweathermap.org/data/2.5/find?q=London&units=imperial&appid=81344c0a0e3fb694da728580f8f9a1e0'
-	weather_request = requests.get(url)
-	weather_json = weather_request.json()
-	print(weather_json)
-
 def main():
  	emails = get_emails()
  	print(emails)
@@ -41,6 +35,9 @@ def main():
  	schedule = get_schedule()
  	print(schedule)
 
- 	get_weather_forecast()
+ 	forecast = weather.get_weather_forecast()
+ 	print(forecast)
+
+ 	mailer.send_emails(emails, schedule, forecast)
 
 main()
